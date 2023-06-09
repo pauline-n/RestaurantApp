@@ -1,0 +1,23 @@
+{
+  "name": "restaurant-app",
+  "version": "1.0.0",
+  "description": "Expressjs backend and React frontend with Mongodb",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pauline-n/restaurant-app-backend.git"
+  },
+  "author": "Pauline",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pauline-n/restaurant-app-backend/issues"
+  },
+  "homepage": "https://github.com/pauline-n/restaurant-app-backend#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
