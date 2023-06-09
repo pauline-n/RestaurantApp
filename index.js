@@ -2,10 +2,14 @@ const express = require('express');
 const app = express()
 const port = 5000
 
+const restaurantRouter = require('./routes/restaurants')
 
-app.get('/', (req,res) => {
+
+app.get('/re', (req,res) => {
     res.send('Hello world!')
 });
+
+app.use('', restaurantRouter)
 
 app.listen(port, () => {
     console.log(`App is listening on port ${port}`)
