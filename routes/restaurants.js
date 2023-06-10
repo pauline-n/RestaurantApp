@@ -1,33 +1,48 @@
 const express = require("express");
 const router = express.Router()
+const Restaurants = require('../models/Restaurants');
+const multer = require('multer');
+path = require('path')
 
-restList = [
-    {
-        "id": 1,
-        "name": "Palish",
-        "quantity": 3
-    },
-    {
-        "id": 2,
-        "name": "Rebon",
-        "quantity": 4
+const storage = multer.diskStorage({
+    destination: './public/uploads/',
+    filename:(req, file, cb)=>{
+      cb(null, file.fieldname, Date.now() + '-' + file.originalname);
     }
-]
+  });
+  
+  //Image upload
+  const upload = multer({
+    storage: storage,
+  }).single('img');
+  
 
 router.get('/', (req, res) => {
-    res.send(restList)
+    res.send('/')
 })
 
-router.post('/', (req,res) => {
-    const addRestaurant= {
-        id: restList.length+1,
-        name: req.body.name,
-        quantity: req.body.quantity
+router.post('/', upload, async(req,res) => {
+    try{
+        const rest = new Restaurants({
+            img: {
+                data: req.file.filename,
+                contentType: "image/png"
+            },
+            rname:req.body.rname,
+            rtype: req.body.rtype,
+            location: req.body.location,
+            workhours: req.body.workhours,
+            services: req.body.services,
+            contact: req.body.contact
+        })
+        // rest.img = req.file.filename;
+        await rest.save()
+        console.log(rest)
+        res.send('successfully uploaded')
+    }  catch(err) {
+        res.status(400).send('Sorry! Something went wrong')
+        console.log(err)
     }
-    console.log(req.body)
-    restList.push(addRestaurant)
-    res.send(addRestaurant)
-    res.sendStatus(201)
 })
 
 router.get('/:id', (req, res) => {
