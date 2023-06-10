@@ -17,8 +17,14 @@ const storage = multer.diskStorage({
   }).single('img');
   
 
-router.get('/', (req, res) => {
-    res.send('/')
+router.get('/', async(req, res) => {
+    try{
+        const items = await Restaurants.find({});
+        res.json(items);
+    } catch (err) {
+        console.log('error getting items:', err);
+        return res.sendStatus(500)
+    }
 })
 
 router.post('/', upload, async(req,res) => {
