@@ -9,6 +9,9 @@ app.get('/re', (req,res) => {
     res.send('Hello world!')
 });
 
+app.use(express.json());
+app.use(express.urlencoded({extended: true}));
+
 app.use('', restaurantRouter)
 
 app.listen(port, () => {
